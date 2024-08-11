@@ -9,8 +9,8 @@ import {
   UserButton
 } from '@clerk/nextjs'
 import { Button } from '../../ui/button'
-import NavItem from '../NavItem'
-import MobileNav from '../MobileNav'
+import NavItem from './NavItem'
+import MobileNav from '../common/MobileNav'
 
 const Header = () => {
   return (

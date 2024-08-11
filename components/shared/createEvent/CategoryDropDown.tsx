@@ -1,4 +1,4 @@
-import React, { startTransition, useState } from 'react'
+import React, { startTransition, useEffect, useState } from 'react'
 import {
     Select,
     SelectContent,
@@ -19,6 +19,7 @@ import {
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
 import { Input } from '@/components/ui/input'
+import { createCategory, getAllCategories } from '@/lib/actions/category.action'
   
 
 type CategoryDropDownType = {
@@ -26,18 +27,35 @@ type CategoryDropDownType = {
     onChangeHandler? : () => void
 }
 
+type categoryType = {
+   name : string,
+   id : string
+}
+ 
 const CategoryDropDown = ({onChangeHandler, value}: CategoryDropDownType) => {
-    const [categories, setCategories] = useState([{
-        _id:"1",
-        name:"Category 1"
-    }])
+    const [categories, setCategories] = useState<categoryType[]>([])
 
     const [newCategory, setNewCategory] = useState("");
 
+    const handleAddCategory = async() => {
+        const newCategoryObj = await createCategory({
+           categoryName: newCategory.trim()
+        })
 
-    const handleAddCategory = () => {
-        alert("hello");
+        setCategories(() => [...categories, newCategoryObj]);
     }
+
+    useEffect(() =>{
+      const getCategories = async () => {
+        const allCategories = await getAllCategories();
+
+        setCategories(allCategories);
+
+      }
+      getCategories();
+
+    },[])
+    
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
         <SelectTrigger className="select-field">
@@ -45,8 +63,8 @@ const CategoryDropDown = ({onChangeHandler, value}: CategoryDropDownType) => {
         </SelectTrigger>
         <SelectContent>
           {
-             categories.length > 0 && categories.map((category) => (
-                <SelectItem key={category._id} value={category._id} className='select-item  p-regular-14'>
+             categories?.length > 0 && categories.map((category) => (
+                <SelectItem key={category.id} value={category.id} className='select-item  p-regular-14'>
                     {category.name}
                 </SelectItem>
              ))

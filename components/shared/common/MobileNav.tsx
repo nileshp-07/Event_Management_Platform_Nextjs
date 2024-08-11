@@ -8,9 +8,9 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 import Image from 'next/image'
-import menuIcon from "../../public/assets/icons/menu.svg"
-import logo from "../../public/assets/images/logo.svg"
-import { Separator } from '../ui/separator'
+import menuIcon from "../../../public/assets/icons/menu.svg"
+import logo from "../../../public/assets/images/logo.svg"
+import { Separator } from '../../ui/separator'
 import NavItem from './NavItem'
 const MobileNav = () => {
   return (

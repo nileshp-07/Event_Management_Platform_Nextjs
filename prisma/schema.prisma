@@ -31,7 +31,7 @@ model Event {
   endDateTime   DateTime  @default(now())
   price         String?
   isFree        Boolean   @default(false)
-  url           String
+  url           String?
   categoryId    String? @db.ObjectId
   organizerId   String? @db.ObjectId
 

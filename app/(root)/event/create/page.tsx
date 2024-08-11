@@ -4,8 +4,11 @@ import React from 'react'
 
 const page = () => {
     const {sessionClaims} = auth();
+    console.log("ADFADFa");
 
     const userId = sessionClaims?.userId as string;
+
+    console.log("UserId" , userId);
   return (
     <div>
         <div className='md:py-5 py-3 bg-primary-50'>
