@@ -28,7 +28,7 @@ const FileUploader = ({imageUrl, setFiles, onFileChange}: FileUploaderType ) => 
   return (
     <div
       {...getRootProps()}
-      className="flex-center bg-dark-3 flex h-60 cursor-pointer flex-col overflow-hidden rounded-xl bg-grey-50">
+      className="flex-center bg-dark-3 flex h-60 cursor-pointer flex-col overflow-hidden rounded-xl bg-grey-50 border">
       <input {...getInputProps()} className="cursor-pointer" />
 
       {imageUrl ? (

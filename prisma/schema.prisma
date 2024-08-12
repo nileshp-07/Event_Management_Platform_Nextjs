@@ -34,6 +34,7 @@ model Event {
   url           String?
   categoryId    String? @db.ObjectId
   organizerId   String? @db.ObjectId
+  // createdAt     DateTime @default(now())
 
   category      Category? @relation(fields: [categoryId], references: [id])
   organizer     User?     @relation(fields: [organizerId], references: [id])

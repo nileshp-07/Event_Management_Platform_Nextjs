@@ -34,3 +34,30 @@ export type SearchParamTypes = {
     params: { id: string }
     searchParams: { [key: string]: string | string[] | undefined }
   }
+
+export type GetAllEventsType = {
+    query? : string,
+    category? : string,
+    limit :  number,
+    page : number
+}
+
+
+export type DeleteEventType = {
+    eventId: string,
+    path : string
+}
+
+export type UpdateEventType = {
+    userId : string,
+    event : any,
+    path : string
+}
+
+
+export type RelatedEventsType = {
+    categoryId: string,
+    eventId : string,
+    limit? : number,
+    page? : string
+}
