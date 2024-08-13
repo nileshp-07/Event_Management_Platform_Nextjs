@@ -1,6 +1,6 @@
 "use server"
 
-import { createEventType, DeleteEventType, GetAllEventsType, RelatedEventsType, UpdateEventType } from "@/types";
+import { createEventType, DeleteEventType, GetAllEventsType, GetOrganizedEventType, RelatedEventsType, UpdateEventType } from "@/types";
 import { handleError } from "../utils";
 import db from "../prisma/db";
 import { revalidatePath } from "next/cache";
@@ -199,4 +199,42 @@ export const getRelatedEvents = async ({categoryId, eventId, limit=3, page="1"}:
     {
         handleError(err);
     }
+}
+
+
+export const getOrganizedEvents = async ({userId, limit=3 , page}: GetOrganizedEventType) => {
+    try{
+        const skipAmount = (Number(page) - 1) * limit;
+
+        const organizedEvents = await db.event.findMany({
+            where:{
+                organizerId: userId
+            },
+            skip: skipAmount,
+            take :  limit,
+             // orderBy: {
+            //   createdAt: 'desc'
+            // },
+            include: {  //populating the ordganizer and category
+                organizer: true, 
+                category: true, 
+            },
+        });
+
+        const eventCounts = await db.event.count({
+            where: {
+                organizerId: userId
+            }
+        })
+
+        return {
+            events: JSON.parse(JSON.stringify(organizedEvents)),
+            totalPages: Math.ceil(eventCounts)
+        }
+    }
+    catch(err)
+    {
+        handleError(err);
+    }
+
 }

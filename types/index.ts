@@ -61,3 +61,29 @@ export type RelatedEventsType = {
     limit? : number,
     page? : string
 }
+
+
+export type GetOrganizedEventType = {
+    userId : string,
+    limit? : number,
+    page? : number
+}
+
+
+export type CheckoutOrderType = {
+    eventTitle : string,
+    eventId : string,
+    price : string,
+    isFree : boolean,
+    buyerId : string
+}
+
+
+export type CreateOrderType = {
+    orderId: string
+    eventId: string
+    userId: string
+    amount: string
+    createdAt: Date
+  }
+  

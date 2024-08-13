@@ -6,6 +6,7 @@ import calendarIcon from "../../../../public/assets/icons/calendar.svg"
 import locationIcon from "../../../../public/assets/icons/location.svg"
 import { formatDateTime } from '@/lib/utils';
 import Collection from '@/components/shared/common/Collection';
+import CheckOut from '@/components/shared/eventDetails/CheckOut';
 
 const eventDetails = async ({params: {id}, searchParams} : SearchParamTypes) => {
 
@@ -41,6 +42,8 @@ const eventDetails = async ({params: {id}, searchParams} : SearchParamTypes) => 
                 <p className='p-medium-18 mt-2 sm:mt-0 ml-2'>by {' '} <span className='text-primary-500'>{eventDetails.organizer.firstName} {eventDetails.organizer.lastName}</span></p>
               </div>
             </div>
+
+            <CheckOut event={eventDetails}/>
 
             {/* time and location  */}
             <div className='flex flex-col gap-5'> 
