@@ -1,17 +1,25 @@
 import Collection from '@/components/shared/common/Collection'
 import { Button } from '@/components/ui/button'
 import { getOrganizedEvents } from '@/lib/actions/event.actions'
+import { getPurchasedOrder } from '@/lib/actions/order.action'
+import { SearchParamType } from '@/types'
 import { auth } from '@clerk/nextjs/server'
 import Link from 'next/link'
 import React from 'react'
 
-const page = async () => {
+const ProfilePage = async ({searchParams} : SearchParamType) => {
     const {sessionClaims} = auth();
     const userId = sessionClaims?.userId  as string;
 
-    const organizedEvents = await getOrganizedEvents({userId, page: 1 });
+    const ordersPage = Number(searchParams?.ordersPage) || 1;
+    const eventsPage = Number(searchParams?.eventsPage) || 1;
 
-    console.log(organizedEvents);
+    const orders = await getPurchasedOrder({userId, page: ordersPage})
+
+    const orderedEvents = orders?.orders?.map((order: any) => order.event)
+    const organizedEvents = await getOrganizedEvents({userId, page: eventsPage });
+
+    // console.log(organizedEvents);
   return (
     <>
       <section>
@@ -27,18 +35,18 @@ const page = async () => {
             </div>
         </div>
 
-        {/* <div className='my-8 wrapper'>
+        <div className='my-8 wrapper'>
             <Collection
                events = {orderedEvents}
                emptyMsg='No event ticket purchased yet'
                emptyStateSubtext='No worries - exiciting events to explore'
                collectionType='My_Tickets'
                limit={3}
-               page={1}
+               page={ordersPage}
                urlParamName='orderPage'
-               totalPages={1}
+               totalPages={orders?.totalPages}
             />
-        </div> */}
+        </div>
       </section>
 
       <section>
@@ -61,9 +69,9 @@ const page = async () => {
                emptyStateSubtext='Create Now'
                collectionType='Events_Organized'
                limit={3}
-               page={1}
+               page={eventsPage}
                urlParamName='eventsPage'
-               totalPages={1}
+               totalPages={organizedEvents?.totalPages}
             />
         </div>
       </section>
@@ -72,4 +80,4 @@ const page = async () => {
   )
 }
 
-export default page
+export default ProfilePage

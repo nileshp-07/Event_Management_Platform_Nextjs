@@ -31,3 +31,20 @@ export const getAllCategories = async () => {
         handleError(err);
     }
 }
+
+
+export const getCategoryIdbyName = async (categoryName: string) => {
+    try{
+        const category = await db.category.findFirst({
+            where : {
+                name :  categoryName
+            }
+        });
+
+        return category?.id;
+    }
+    catch(err)
+    {
+        handleError(err)
+    }
+}

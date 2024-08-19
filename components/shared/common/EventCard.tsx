@@ -17,7 +17,7 @@ const EventCard = ({event, hasOrderLink, hidePrice}: EventCardType) => {
   const {sessionClaims} = auth()
   const userId = sessionClaims?.userId as string;
 
-  console.log("EVENT : ", event)
+  // console.log("EVENT : ", event)
 
   const isOrganizer = userId === event?.organizer?.id.toString();
 

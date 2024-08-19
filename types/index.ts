@@ -30,11 +30,6 @@ export  type createEventType = {
     path : string
 }
 
-export type SearchParamTypes = {
-    params: { id: string }
-    searchParams: { [key: string]: string | string[] | undefined }
-  }
-
 export type GetAllEventsType = {
     query? : string,
     category? : string,
@@ -86,4 +81,31 @@ export type CreateOrderType = {
     amount: string
     createdAt: Date
   }
+
+export type PurchashedOrderType = {
+    userId : string,
+    limit? : number,
+    page? :  number
+}
+
+
+export type SearchParamType = {
+    params: { id: string }
+    searchParams: { [key: string]: string | string[] | undefined }
+  }
+
+  export type UrlQueryType = {
+    params: string
+    key: string
+    value: string | null
+  }
   
+  export type RemoveUrlQueryType = {
+    params: string
+    keysToRemove: string[]
+  }
+
+  export type GetEventOrdersType =  {
+     searchString? : string,
+     eventId : string
+  }

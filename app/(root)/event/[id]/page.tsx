@@ -1,5 +1,5 @@
 import { getEventDetails, getRelatedEvents } from '@/lib/actions/event.actions'
-import { SearchParamTypes } from '@/types'
+import { SearchParamType } from '@/types'
 import Image from 'next/image';
 import React from 'react'
 import calendarIcon from "../../../../public/assets/icons/calendar.svg"
@@ -8,7 +8,7 @@ import { formatDateTime } from '@/lib/utils';
 import Collection from '@/components/shared/common/Collection';
 import CheckOut from '@/components/shared/eventDetails/CheckOut';
 
-const eventDetails = async ({params: {id}, searchParams} : SearchParamTypes) => {
+const eventDetails = async ({params: {id}, searchParams} : SearchParamType) => {
 
     const eventDetails = await getEventDetails(id);
     const relatedEvents = await getRelatedEvents({

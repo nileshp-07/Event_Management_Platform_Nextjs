@@ -4,6 +4,7 @@ import { createEventType, DeleteEventType, GetAllEventsType, GetOrganizedEventTy
 import { handleError } from "../utils";
 import db from "../prisma/db";
 import { revalidatePath } from "next/cache";
+import { getCategoryIdbyName } from "./category.action";
 
 
 export const createEvent = async ({event, userId, path} : createEventType) => {
@@ -63,10 +64,13 @@ export const getEventDetails = async (eventId: string) => {
 export const getAllEvents = async ({query, limit=6, page, category}: GetAllEventsType) => {
     try{
         const searchQuery =  query ? { title: { contains: query, mode: 'insensitive' } } : {};
+
+        const categoryId = await getCategoryIdbyName(category!);
+
         const conditions: any = {
             AND : [
                 searchQuery, 
-                category ? {categoryId: category} : {}
+                category ? {categoryId: categoryId} : {}
             ]
         }
 
@@ -99,8 +103,8 @@ export const getAllEvents = async ({query, limit=6, page, category}: GetAllEvent
     }
     catch(err)
     {
-        console.log( "ERROR : ",err)
-        // handleError(err);
+        // console.log( "ERROR : ",err)
+        handleError(err);
     }
 }
 
